@@ -17,14 +17,26 @@ A WebDAV server powered by [Apache OpenDAL](https://opendal.apache.org/), enabli
 
 ## Usage
 
+Run with Docker
+
+```bash
+docker run -p 8080:8080 \
+  -e OPENDAL_TYPE=s3 \
+  -e OPENDAL_BUCKET=mybucket \
+  -e OPENDAL_REGION=us-east-1 \
+  -e OPENDAL_ACCESS_KEY_ID=xxx \
+  -e OPENDAL_SECRET_ACCESS_KEY=xxx \
+  ghcr.io/frostming/opendal-webdav-server:latest
+```
+
 ### Environment Variables
 
-| Variable | Description | Required |
-|----------|-------------|----------|
-| `OPENDAL_TYPE` | Storage backend type (e.g., `s3`, `fs`, `gcs`, `azblob`) | Yes |
-| `OPENDAL_*` | Backend-specific configuration (see below) | Depends on backend |
-| `HOST` | Listen address (default: `0.0.0.0`) | No |
-| `PORT` | Listen port (default: `8080`) | No |
+| Variable       | Description                                              | Required           |
+| -------------- | -------------------------------------------------------- | ------------------ |
+| `OPENDAL_TYPE` | Storage backend type (e.g., `s3`, `fs`, `gcs`, `azblob`) | Yes                |
+| `OPENDAL_*`    | Backend-specific configuration (see below)               | Depends on backend |
+| `HOST`         | Listen address (default: `0.0.0.0`)                      | No                 |
+| `PORT`         | Listen port (default: `8080`)                            | No                 |
 
 Configuration variables are automatically converted: `OPENDAL_ACCESS_KEY_ID` becomes `access-key-id` in OpenDAL config.
 
@@ -77,26 +89,6 @@ OPENDAL_CONTAINER=mycontainer \
 OPENDAL_ACCOUNT_NAME=myaccount \
 OPENDAL_ACCOUNT_KEY=mykey \
 cargo run
-```
-
-## Docker
-
-### Build
-
-```bash
-docker build -t opendal-webdav .
-```
-
-### Run
-
-```bash
-docker run -p 8080:8080 \
-  -e OPENDAL_TYPE=s3 \
-  -e OPENDAL_BUCKET=mybucket \
-  -e OPENDAL_REGION=us-east-1 \
-  -e OPENDAL_ACCESS_KEY_ID=xxx \
-  -e OPENDAL_SECRET_ACCESS_KEY=xxx \
-  opendal-webdav
 ```
 
 ## Connecting
